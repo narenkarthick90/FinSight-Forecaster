@@ -259,9 +259,6 @@ class LLMForecastEngine:
         self.llm_tokenizer = None
         self.llm_model = None
 
-    # Replace the LLMForecastEngine.load_llm method
-    # (around line 250-265) with this updated version:
-
     @st.cache_resource
     def load_llm(_self):
         """Load SmolLM3-3B-Base model"""
@@ -277,7 +274,7 @@ class LLMForecastEngine:
                 )
                 model = AutoModelForCausalLM.from_pretrained(
                     "HuggingFaceTB/SmolLM2-1.7B-Instruct",
-                    torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+                    dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
                     device_map="auto" if torch.cuda.is_available() else None,
                     trust_remote_code=True
                 )
