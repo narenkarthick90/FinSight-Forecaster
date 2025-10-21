@@ -1,8 +1,6 @@
 # stock_forecast_app.py
 """
 Stock Price Forecasting System with SmolLM3-3B-Base
-A comprehensive chatbot-based forecasting system implementing all components
-except D (RAG Retriever), F (Hybrid Signal Fusion), and J (Continual Learning)
 """
 
 import streamlit as st
