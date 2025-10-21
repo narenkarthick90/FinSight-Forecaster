@@ -262,9 +262,11 @@ class LLMForecastEngine:
     # Replace the LLMForecastEngine.load_llm method
     # (around line 250-265) with this updated version:
 
+    # Replace the load_llm method with this updated version:
+
     @st.cache_resource
     def load_llm(_self):
-        """Load SmolLM3-3B-Base model"""
+        """Load SmolLM2-1.7B-Instruct model"""
         if not TRANSFORMERS_AVAILABLE:
             st.info("🤖 Transformers library not available. Using template-based narrative generation.")
             return None, None
@@ -275,14 +277,17 @@ class LLMForecastEngine:
                     "HuggingFaceTB/SmolLM2-1.7B-Instruct",
                     trust_remote_code=True
                 )
+                import torch
                 model = AutoModelForCausalLM.from_pretrained(
                     "HuggingFaceTB/SmolLM2-1.7B-Instruct",
-                    torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+                    dtype=torch.float16 if torch.cuda.is_available() else torch.float32,  # Changed from torch_dtype
                     device_map="auto" if torch.cuda.is_available() else None,
-                    trust_remote_code=True
+                    trust_remote_code=True,
+                    low_cpu_mem_usage=True  # Added for better memory efficiency
                 )
                 st.success("✅ LLM model loaded successfully!")
                 return tokenizer, model
+
         except Exception as e:
             st.warning(f"Could not load LLM: {str(e)}. Using template-based generation.")
             return None, None
