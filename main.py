@@ -744,11 +744,6 @@ def main():
         - ✅ Interactive What-If
         - ✅ Backend Manager
         - ✅ Output Generator
-
-        **Excluded (as per design):**
-        - ❌ RAG Retriever
-        - ❌ Hybrid Signal Fusion
-        - ❌ Continual Learning
         """)
 
         st.divider()
@@ -807,7 +802,7 @@ def run_forecast_pipeline():
         if df is None or df.empty:
             st.session_state.messages.append({
                 'type': 'bot',
-                'text': f"❌ Could not fetch data for {st.session_state.ticker}. Please check the ticker symbol."
+                'text': f"Could not fetch data for {st.session_state.ticker}. Please check the ticker symbol."
             })
             st.session_state.conversation_state = 'AWAITING_TICKER'
             return
@@ -913,7 +908,7 @@ def run_forecast_pipeline():
                 st.info("SHAP values not available")
 
         # Technical indicators table
-        with st.expander("📊 View Technical Indicators"):
+        with st.expander("View Technical Indicators"):
             indicators_df = pd.DataFrame({
                 'Indicator': ['7-Day SMA', '20-Day SMA', 'Momentum', 'Volatility', 'RSI'],
                 'Value': [
@@ -951,7 +946,7 @@ def run_forecast_pipeline():
         # Component I: Interactive module
         st.session_state.messages.append({
             'type': 'bot',
-            'text': "🤔 You can now ask:\n- 'Why is the forecast increasing/decreasing?'\n- 'What if volume increases by 50%?'\n- 'What if market crashes?'\n- Or enter a new ticker to analyze another stock."
+            'text': "You can now ask:\n- 'Why is the forecast increasing/decreasing?'\n- 'What if volume increases by 50%?'\n- 'What if market crashes?'\n- Or enter a new ticker to analyze another stock."
         })
 
         st.session_state.conversation_state = 'INTERACTIVE'
